@@ -1,6 +1,19 @@
-import { TaskStatus, StatusStyle, ProjectName } from "../types";
+import { TaskStatus, StatusStyle, ProjectName, AssignedTo } from "../types";
 
 export const PROJECT_OPTIONS: ProjectName[] = ["Sherwin Williams", "GMDR2"];
+
+export const ASSIGNED_TO_OPTIONS: AssignedTo[] = [
+  "Pradeep Kumar",
+  "shyam Mohan Singh",
+  "Pramod Sirotia",
+  "Pradeep Sharma",
+  "mamta jain",
+  "shweta parmar",
+  "Sachain",
+  "Neerajpal",
+  "Chandan Roy",
+  "Harsh Mittal",
+];
 
 export const STATUS_OPTIONS: TaskStatus[] = [
   "Analysis",
@@ -30,6 +43,7 @@ export const EMPTY_FORM: Omit<import("../types").Task, "id"> = {
   projectName: "",
   azureDevOpsId: "",
   taskDescription: "",
+  assignedTo: "",
   status: "",
   remarks: "",
 };

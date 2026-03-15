@@ -1,6 +1,6 @@
 import React, { useState, CSSProperties } from "react";
 import { Task, FormErrors } from "../types";
-import { STATUS_OPTIONS, PROJECT_OPTIONS } from "../utils/constants";
+import { STATUS_OPTIONS, PROJECT_OPTIONS, ASSIGNED_TO_OPTIONS } from "../utils/constants";
 import { validateForm } from "../utils/helpers";
 import StatusBadge from "./StatusBadge";
 import { getInputStyle } from "./FormField";
@@ -136,6 +136,23 @@ const TaskRow: React.FC<Props> = ({ task, index, onUpdate, onDelete }) => {
             style={{ display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 230 }}
           >
             {task.taskDescription}
+          </span>
+        )}
+      </td>
+
+      {/* Assigned To */}
+      <td style={cellStyle}>
+        {isEditing ? (
+          <div>
+            <select value={editForm.assignedTo} onChange={set("assignedTo")} style={{ ...editInputStyle(!!errors.assignedTo), minWidth: 140, cursor: "pointer" }}>
+              <option value="">Select…</option>
+              {ASSIGNED_TO_OPTIONS.map((person) => <option key={person} value={person}>{person}</option>)}
+            </select>
+            {errors.assignedTo && <div style={{ color: "#f44336", fontSize: 10.5, marginTop: 2 }}>{errors.assignedTo}</div>}
+          </div>
+        ) : (
+          <span style={{ fontWeight: 600, color: "#1e293b" }}>
+            {task.assignedTo || <span style={{ color: "#cbd5e1" }}>—</span>}
           </span>
         )}
       </td>

@@ -49,7 +49,7 @@ export function exportToExcel(rows: Task[]): void {
   const ws: XLSX.WorkSheet = {};
 
   // Header row
-  const headers = ["Project", "AzureDevOps ID", "Task Description", "Status", "Remark"];
+  const headers = ["Project", "AzureDevOps ID", "Task Description", "Assigned To", "Status", "Remark"];
   const headerBg = "FF1F4E79";
 
   headers.forEach((h, c) => {
@@ -80,10 +80,14 @@ export function exportToExcel(rows: Task[]): void {
       s: makeStyle(false, "FF1E293B", rowBg),
     };
     ws[XLSX.utils.encode_cell({ r, c: 3 })] = {
+      v: row.assignedTo || "", t: "s",
+      s: makeStyle(false, "FF1E293B", rowBg),
+    };
+    ws[XLSX.utils.encode_cell({ r, c: 4 })] = {
       v: row.status, t: "s",
       s: makeStyle(true, statusColor, rowBg),
     };
-    ws[XLSX.utils.encode_cell({ r, c: 4 })] = {
+    ws[XLSX.utils.encode_cell({ r, c: 5 })] = {
       v: row.remarks || "", t: "s",
       s: makeStyle(false, "FF64748B", rowBg),
     };
@@ -100,9 +104,9 @@ export function exportToExcel(rows: Task[]): void {
   });
 
   ws["!merges"] = merges;
-  ws["!cols"] = [{ wch: 20 }, { wch: 16 }, { wch: 58 }, { wch: 18 }, { wch: 24 }];
+  ws["!cols"] = [{ wch: 20 }, { wch: 16 }, { wch: 58 }, { wch: 20 }, { wch: 18 }, { wch: 24 }];
   ws["!rows"] = [{ hpt: 28 }, ...rows.map(() => ({ hpt: 40 }))];
-  ws["!ref"] = XLSX.utils.encode_range({ s: { r: 0, c: 0 }, e: { r: rows.length, c: 4 } });
+  ws["!ref"] = XLSX.utils.encode_range({ s: { r: 0, c: 0 }, e: { r: rows.length, c: 5 } });
 
   XLSX.utils.book_append_sheet(wb, ws, "Tasks");
   XLSX.writeFile(wb, `tasks_${new Date().toISOString().slice(0, 10)}.xlsx`);

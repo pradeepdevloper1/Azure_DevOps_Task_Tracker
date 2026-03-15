@@ -1,6 +1,6 @@
 import React, { useState, CSSProperties } from "react";
 import { Task, TaskFormData, FormErrors } from "../types";
-import { STATUS_OPTIONS, PROJECT_OPTIONS, EMPTY_FORM } from "../utils/constants";
+import { STATUS_OPTIONS, PROJECT_OPTIONS, ASSIGNED_TO_OPTIONS, EMPTY_FORM } from "../utils/constants";
 import { validateForm } from "../utils/helpers";
 import FormField, { getInputStyle } from "./FormField";
 
@@ -117,12 +117,27 @@ const TaskForm: React.FC<Props> = ({ onAdd }) => {
         <FormField label="Task Description" error={errors.taskDescription} flex="2 1 200px" minWidth={160}>
           <input
             type="text"
-            placeholder="Brief description of the task..."
+            placeholder="Brief description of task..."
             value={form.taskDescription}
             onChange={set("taskDescription")}
             style={inputStyle("taskDescription")}
             {...focusHandlers("taskDescription")}
           />
+        </FormField>
+
+        {/* Assigned To */}
+        <FormField label="Assigned To" error={errors.assignedTo} flex="1 1 155px" minWidth={145}>
+          <select
+            value={form.assignedTo}
+            onChange={set("assignedTo")}
+            style={{ ...inputStyle("assignedTo"), cursor: "pointer" }}
+            {...focusHandlers("assignedTo")}
+          >
+            <option value="">Select assignee…</option>
+            {ASSIGNED_TO_OPTIONS.map((person) => (
+              <option key={person} value={person}>{person}</option>
+            ))}
+          </select>
         </FormField>
 
         {/* Status */}
@@ -153,7 +168,7 @@ const TaskForm: React.FC<Props> = ({ onAdd }) => {
         </FormField>
 
         {/* Submit */}
-        <div style={{ flex: "0 0 auto", paddingBottom: errors.projectName || errors.azureDevOpsId || errors.taskDescription || errors.status ? 20 : 0 }}>
+        <div style={{ flex: "0 0 auto", paddingBottom: errors.projectName || errors.azureDevOpsId || errors.taskDescription || errors.assignedTo || errors.status ? 20 : 0 }}>
           <button
             onClick={handleAdd}
             style={{

@@ -11,11 +11,25 @@ export type TaskStatus =
 
 export type ProjectName = "Sherwin Williams" | "GMDR2" | "";
 
+export type AssignedTo = 
+  | "Pradeep Kumar"
+  | "shyam Mohan Singh"
+  | "Pramod Sirotia"
+  | "Pradeep Sharma"
+  | "mamta jain"
+  | "shweta parmar"
+  | "Sachain"
+  | "Neerajpal"
+  | "Chandan Roy"
+  | "Harsh Mittal"
+  | "";
+
 export interface Task {
   id: number;
   projectName: ProjectName;
   azureDevOpsId: string;
   taskDescription: string;
+  assignedTo: AssignedTo;
   status: TaskStatus | "";
   remarks: string;
 }
@@ -26,6 +40,7 @@ export interface FormErrors {
   projectName?: string;
   azureDevOpsId?: string;
   taskDescription?: string;
+  assignedTo?: string;
   status?: string;
 }
 

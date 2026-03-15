@@ -85,7 +85,14 @@ const App: React.FC = () => {
             <div style={{ display: "flex", gap: 10, marginTop: 14, flexWrap: "wrap" }}>
               {[
                 { label: "Total", count: tasks.length, color: "#6366f1", bg: "#ede9fe" },
-                { label: "In Progress", count: tasks.filter(t => t.status === "Dev In Progress" || t.status === "QA In Progress").length, color: "#d97706", bg: "#fef3c7" },
+                { label: "Analysis", count: tasks.filter(t => t.status === "Analysis").length, color: "#0891b2", bg: "#dbeafe" },
+                { label: "Dev In Progress", count: tasks.filter(t => t.status === "Dev In Progress").length, color: "#d97706", bg: "#fef3c7" },
+                { label: "Dev Complete", count: tasks.filter(t => t.status === "Dev Complete").length, color: "#059669", bg: "#d1fae5" },
+                { label: "PR Raised", count: tasks.filter(t => t.status === "PR Raised").length, color: "#7c3aed", bg: "#e9d5ff" },
+                { label: "PR Approved", count: tasks.filter(t => t.status === "PR Approved").length, color: "#06b6d4", bg: "#d0fde4" },
+                { label: "PR Merged", count: tasks.filter(t => t.status === "PR Merged").length, color: "#4338ca", bg: "#e0e7ff" },
+                { label: "QA In Progress", count: tasks.filter(t => t.status === "QA In Progress").length, color: "#ea580c", bg: "#fef3c7" },
+                { label: "QA Complete", count: tasks.filter(t => t.status === "QA Complete").length, color: "#84cc16", bg: "#dcfce7" },
                 { label: "Done", count: tasks.filter(t => t.status === "Done").length, color: "#059669", bg: "#d1fae5" },
               ].map(({ label, count, color, bg }) => (
                 <div key={label} style={{ background: bg, borderRadius: 8, padding: "5px 14px", display: "flex", alignItems: "center", gap: 7 }}>
