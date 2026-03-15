@@ -117,6 +117,7 @@ export function validateForm(form: Omit<Task, "id">): Record<string, string> {
   if (!form.projectName) errors.projectName = "Project name is required";
   if (!form.azureDevOpsId.trim()) errors.azureDevOpsId = "DevOps ID is required";
   if (!form.taskDescription.trim()) errors.taskDescription = "Description is required";
+  if (!form.assignedTo) errors.assignedTo = "Assignee is required";
   if (!form.status) errors.status = "Status is required";
   return errors;
 }

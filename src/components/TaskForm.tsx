@@ -87,7 +87,7 @@ const TaskForm: React.FC<Props> = ({ onAdd }) => {
 
       <div style={{ display: "flex", flexWrap: "wrap", gap: 12, alignItems: "flex-end" }}>
         {/* Project Name Dropdown */}
-        <FormField label="Project Name" error={errors.projectName} flex="1 1 160px" minWidth={150}>
+        <FormField label="Project Name" error={undefined} flex="1 1 160px" minWidth={150}>
           <select
             value={form.projectName}
             onChange={set("projectName")}
@@ -102,7 +102,7 @@ const TaskForm: React.FC<Props> = ({ onAdd }) => {
         </FormField>
 
         {/* Azure DevOps ID */}
-        <FormField label="Azure DevOps ID" error={errors.azureDevOpsId} flex="0 1 130px" minWidth={110}>
+        <FormField label="Azure DevOps ID" error={undefined} flex="0 1 130px" minWidth={110}>
           <input
             type="text"
             placeholder="e.g. #4821"
@@ -114,7 +114,7 @@ const TaskForm: React.FC<Props> = ({ onAdd }) => {
         </FormField>
 
         {/* Task Description */}
-        <FormField label="Task Description" error={errors.taskDescription} flex="2 1 200px" minWidth={160}>
+        <FormField label="Task Description" error={undefined} flex="2 1 200px" minWidth={160}>
           <input
             type="text"
             placeholder="Brief description of task..."
@@ -126,7 +126,7 @@ const TaskForm: React.FC<Props> = ({ onAdd }) => {
         </FormField>
 
         {/* Assigned To */}
-        <FormField label="Assigned To" error={errors.assignedTo} flex="1 1 155px" minWidth={145}>
+        <FormField label="Assigned To" error={undefined} flex="1 1 155px" minWidth={145}>
           <select
             value={form.assignedTo}
             onChange={set("assignedTo")}
@@ -141,7 +141,7 @@ const TaskForm: React.FC<Props> = ({ onAdd }) => {
         </FormField>
 
         {/* Status */}
-        <FormField label="Status" error={errors.status} flex="1 1 155px" minWidth={145}>
+        <FormField label="Status" error={undefined} flex="1 1 155px" minWidth={145}>
           <select
             value={form.status}
             onChange={set("status")}
@@ -156,7 +156,7 @@ const TaskForm: React.FC<Props> = ({ onAdd }) => {
         </FormField>
 
         {/* Remarks */}
-        <FormField label="Remarks" flex="1 1 140px" minWidth={130}>
+        <FormField label="Remarks" error={undefined} flex="1 1 140px" minWidth={130}>
           <input
             type="text"
             placeholder="Optional note..."
@@ -168,7 +168,7 @@ const TaskForm: React.FC<Props> = ({ onAdd }) => {
         </FormField>
 
         {/* Submit */}
-        <div style={{ flex: "0 0 auto", paddingBottom: errors.projectName || errors.azureDevOpsId || errors.taskDescription || errors.assignedTo || errors.status ? 20 : 0 }}>
+        <div style={{ flex: "0 0 auto" }}>
           <button
             onClick={handleAdd}
             style={{
@@ -187,16 +187,61 @@ const TaskForm: React.FC<Props> = ({ onAdd }) => {
               whiteSpace: "nowrap",
             }}
             onMouseOver={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.transform = "translateY(-1px)";
-              (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 6px 18px rgba(99,102,241,0.45)";
+              e.currentTarget.style.transform = "translateY(-1px)";
+              e.currentTarget.style.boxShadow = "0 6px 20px rgba(99,102,241,0.5)";
             }}
             onMouseOut={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.transform = "translateY(0)";
-              (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 4px 14px rgba(99,102,241,0.4)";
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow = "0 4px 14px rgba(99,102,241,0.4)";
             }}
           >
-            + Add Task
+            Add Task
           </button>
+        </div>
+      </div>
+
+      {/* Error Messages Row */}
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 8, marginLeft: 0, paddingLeft: 0 }}>
+        <div style={{ flex: "1 1 160px", minWidth: 150, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+          {errors.projectName && (
+            <span style={{ color: "#f44336", fontSize: 11, display: "block", textAlign: "left", width: "100%" }}>
+              ⚠ {errors.projectName}
+            </span>
+          )}
+        </div>
+        <div style={{ flex: "0 1 120px", minWidth: 110, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+          {errors.azureDevOpsId && (
+            <span style={{ color: "#f44336", fontSize: 11, display: "block", textAlign: "left", width: "100%" }}>
+              ⚠ {errors.azureDevOpsId}
+            </span>
+          )}
+        </div>
+        <div style={{ flex: "2 1 200px", minWidth: 160, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+          {errors.taskDescription && (
+            <span style={{ color: "#f44336", fontSize: 11, display: "block", textAlign: "left", width: "100%" }}>
+              ⚠ {errors.taskDescription}
+            </span>
+          )}
+        </div>
+        <div style={{ flex: "1 1 155px", minWidth: 145, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+          {errors.assignedTo && (
+            <span style={{ color: "#f44336", fontSize: 11, display: "block", textAlign: "left", width: "100%" }}>
+              ⚠ {errors.assignedTo}
+            </span>
+          )}
+        </div>
+        <div style={{ flex: "1 1 155px", minWidth: 145, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+          {errors.status && (
+            <span style={{ color: "#f44336", fontSize: 11, display: "block", textAlign: "left", width: "100%" }}>
+              ⚠ {errors.status}
+            </span>
+          )}
+        </div>
+        <div style={{ flex: "1 1 140px", minWidth: 130, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+          {/* Remarks field doesn't have validation, but we need div to maintain alignment */}
+        </div>
+        <div style={{ flex: "0 0 auto", display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+          {/* Submit button space - no error messages */}
         </div>
       </div>
     </div>

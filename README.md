@@ -67,6 +67,7 @@ App runs at http://localhost:3000
 
 
 
+ngrok http 3000
 
 link: ngrok  :  https://unvulnerable-histiocytic-tatyana.ngrok-free.dev/
 
